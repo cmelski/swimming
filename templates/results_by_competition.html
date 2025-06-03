@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Swimming Tracker Results by Event</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<style>
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+
+	font-size: 18px;
+	color: #FFFFFF;
+
+}
+
+td {
+	color: #000000;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+
+	input, select, textarea{
+		color: #ff0000;
+	}
+	textarea:focus, input:focus {
+    color: #ff0000;
+}
+
+input:not(:focus) {
+	color: #ff0000;
+}
+	input::placeholder{
+  color: #ff0000;
+}
+
+</style>
+	</head>
+	<body class="landing is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1>Swimming Tracker</h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="{{ url_for('home') }}">Home</a></li>
+
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Banner -->
+				<section id="banner">
+					<h2>Results by Competition</h2>
+					<br>
+					<br>
+					<div style="display: inline-block">
+					<form id="get_comp_results" method="POST" action="{{ url_for('get_comp_results')}}">
+
+						<label style="color:#FFFFFF" for="swimmers">Choose a swimmer:</label>
+
+						<select name="swimmers" id="swimmers">
+							{% for swimmer in swimmers: %}
+
+  								<option value="{{swimmer[1] + ' ' + swimmer[2]}}">{{swimmer[1] + ' ' + swimmer[2]}}</option>
+  							{% endfor %}
+						</select>
+
+						<br>
+
+
+
+						<label style="color:#FFFFFF" for="comps">Choose a competition:</label>
+
+						<select name="competitions" id="competitions">
+							{% for comp in competitions: %}
+
+  								<option value="{{comp[1]}}">{{comp[1]}}</option>
+  							{% endfor %}
+						</select>
+
+						<br>
+						<button type="submit">Get Results</button>
+
+					</form>
+					</div>
+
+
+
+
+				</section>
+
+
+			<!-- Footer -->
+				<footer id="footer">
+
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="static/assets/js/jquery.min.js"></script>
+			<script src="static/assets/js/jquery.dropotron.min.js"></script>
+			<script src="static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="static/assets/js/browser.min.js"></script>
+			<script src="static/assets/js/breakpoints.min.js"></script>
+			<script src="static/assets/js/util.js"></script>
+			<script src="static/assets/js/main.js"></script>
+
+	</body>
+</html>

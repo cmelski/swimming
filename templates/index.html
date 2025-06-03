@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Swimming Tracker</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="static/assets/css/main.css" />
+	</head>
+	<body class="landing is-preload">
+		<div id="page-wrapper">
+
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1>Swimming Tracker</h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="{{ url_for('home') }}">Home</a></li>
+
+
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Banner -->
+				<section id="banner">
+					<h2>Swimming Tracker</h2>
+					<p>Manage Swimming Data</p>
+					<ul class="actions special">
+						<li><a href="{{ url_for('add_swimmer') }}" class="button primary">Add Swimmer</a></li>
+						<li><a href="{{ url_for('add_competition') }}" class="button primary">Add Competition</a></li>
+						<li><a href="{{ url_for('add_event') }}" class="button primary">Add Event</a></li>
+						<li><a href="{{ url_for('add_results') }}" class="button primary">Add Results</a></li>
+					</ul>
+					<br>
+
+				</section>
+
+			<!-- Main -->
+				<section id="main" class="container">
+
+
+					<section class="box special">
+						<header class="major">
+							<h2>View Swimming Event Results Below</h2>
+							<br />
+
+						</header>
+					</section>
+
+					<section class="box special features">
+						{% for i in range(0,data|length,2): %}
+
+
+						<div class="features-row">
+							{% if data[i].items()|length > 0: %}
+							{% for key, value in data[i].items(): %}
+							<section>
+								<span class="icon solid major fa-bolt accent2"></span>
+								<h3>{{ key }}</h3>
+								{% for item in value: %}
+								<h4><a href="{{ url_for('get_results', event_id = item[3], swimmer_id = item[0]) }}">{{ item[1] + ' ' + item[2] }}</a></h4>
+								{% endfor %}
+
+
+							</section>
+							{% endfor %}
+							{% endif %}
+
+							{% if data[i+1].items()|length > 0: %}
+							{% for key,value in data[i+1].items(): %}
+							<section>
+								<span class="icon solid major fa-bolt accent2"></span>
+								<h3>{{ key }}</h3>
+								{% for item in value: %}
+								<h4><a href="{{ url_for('get_results', event_id = item[3], swimmer_id = item[0]) }}">{{ item[1] + ' ' + item[2] }}</a></h4>
+								{% endfor %}
+							</section>
+
+							{% endfor %}
+							{% endif %}
+
+
+
+
+
+						</div>
+
+						{% endfor %}
+
+
+					</section>
+
+					<div class="row">
+						<div class="col-6 col-12-narrower">
+
+							<section class="box special">
+								<span class="image featured"><img src="/static/images/swimming.jpg" alt="" /></span>
+								<h3>Personal Bests - Individual</h3>
+
+								<form id="get_pbs" method="POST" action="{{ url_for('get_personal_bests')}}">
+
+						<label style="color:#000000" for="swimmers">Choose a swimmer:</label>
+
+						<select name="swimmers_pb" id="swimmers_pb">
+							{% for swimmer in swimmers: %}
+
+  								<option value="{{swimmer[1] + ' ' + swimmer[2]}}">{{swimmer[1] + ' ' + swimmer[2]}}</option>
+  							{% endfor %}
+						</select>
+
+						<br>
+
+						<button type="submit">Get PBs</button>
+
+									</form>
+									<br>
+									<h3>Personal Bests - Head to Head</h3>
+
+					<form id="get_pbs_compare" method="POST" action="{{ url_for('get_personal_bests_compare')}}">
+
+						<label style="color:#000000" for="swimmers">Choose swimmers:</label>
+
+						<select name="swimmers_pb_compare1" id="swimmers_pb_compare1">
+							{% for swimmer in swimmers: %}
+
+  								<option value="{{swimmer[1] + ' ' + swimmer[2]}}">{{swimmer[1] + ' ' + swimmer[2]}}</option>
+  							{% endfor %}
+						</select>
+						<br>
+						<select name="swimmers_pb_compare2" id="swimmers_pb_compare2">
+							{% for swimmer in swimmers: %}
+
+  								<option value="{{swimmer[1] + ' ' + swimmer[2]}}">{{swimmer[1] + ' ' + swimmer[2]}}</option>
+  							{% endfor %}
+						</select>
+
+						<br>
+
+						<button type="submit">Get PBs - Head to Head</button>
+									</form>
+
+							</section>
+
+						</div>
+						<div class="col-6 col-12-narrower">
+
+							<section class="box special">
+								<span class="image featured"><img src="static/images/swimming2.jpg" alt="" /></span>
+								<h3>Results by Competition</h3>
+
+								<form id="get_comp_results" method="POST" action="{{ url_for('get_comp_results')}}">
+
+						<label style="color:#000000" for="swimmers">Choose a swimmer:</label>
+
+						<select name="swimmers" id="swimmers">
+							{% for swimmer in swimmers: %}
+
+  								<option value="{{swimmer[1] + ' ' + swimmer[2]}}">{{swimmer[1] + ' ' + swimmer[2]}}</option>
+  							{% endfor %}
+						</select>
+
+						<br>
+
+
+
+						<label style="color:#000000" for="comps">Choose a competition:</label>
+
+						<select name="competitions" id="competitions">
+							{% for comp in competitions: %}
+
+  								<option value="{{comp[1]}}">{{comp[1]}}</option>
+  							{% endfor %}
+						</select>
+
+						<br>
+						<button type="submit">Get Results</button>
+
+					</form>
+							</section>
+
+						</div>
+					</div>
+
+				</section>
+
+
+
+
+			<!-- Footer -->
+				<footer id="footer">
+
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="static/assets/js/jquery.min.js"></script>
+			<script src="static/assets/js/jquery.dropotron.min.js"></script>
+			<script src="static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="static/assets/js/browser.min.js"></script>
+			<script src="static/assets/js/breakpoints.min.js"></script>
+			<script src="static/assets/js/util.js"></script>
+			<script src="static/assets/js/main.js"></script>
+
+	</body>
+</html>

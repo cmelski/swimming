@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Swimming Tracker Results</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<style>
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+
+	font-size: 18px;
+	color: #FFFFFF;
+
+}
+
+td {
+	color: #000000;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 0px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 0px 0;
+  border-radius: 6px;
+  font-size: 14px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+</style>
+	</head>
+	<body class="landing is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1>Personal Bests</h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="{{ url_for('home') }}">Home</a></li>
+
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Banner -->
+				<section id="banner">
+					<h2>Personal Bests - Head-to-Head - {{swimmer1}} vs {{swimmer2}}</h2>
+					<br>
+					<br>
+
+					<table>
+						<thead style="background-color: #D3D3D3">
+  <tr>
+    <th style="font-size:18px; font-weight: bolder" scope="col">Stroke</th>
+    <th style="font-size:18px; font-weight: bolder; text-align: center" scope="col">25</th>
+	   <th style="font-size:18px; font-weight: bolder; text-align: center" scope="col">50</th>
+	  <th style="font-size:18px; font-weight: bolder; text-align: center" scope="col">100</th>
+	  <th style="font-size:18px; font-weight: bolder; text-align: center" scope="col">200</th>
+	  <th style="font-size:18px; font-weight: bolder; text-align: center" scope="col">400</th>
+  </tr>
+  <tr>
+	  <td></td>
+
+    <!-- The following two cells will appear under the same header -->
+    <td><table><tr><td style="text-align: center">{{swimmer1.split()[0]}}</td>
+                <td style="text-align: center">{{swimmer2.split()[0]}}</td></tr></table></td>
+    <td><table><tr><td style="text-align: center">{{swimmer1.split()[0]}}</td>
+                <td style="text-align: center">{{swimmer2.split()[0]}}</td></tr></table></td>
+	  <td><table><tr><td style="text-align: center">{{swimmer1.split()[0]}}</td>
+                <td style="text-align: center">{{swimmer2.split()[0]}}</td></tr></table></td>
+    <td><table><tr><td style="text-align: center">{{swimmer1.split()[0]}}</td>
+                <td style="text-align: center">{{swimmer2.split()[0]}}</td></tr></table></td>
+	  <td><table><tr><td style="text-align: center">{{swimmer1.split()[0]}}</td>
+                <td style="text-align: center">{{swimmer2.split()[0]}}</td></tr></table></td>
+
+
+  </tr>
+						<tr>
+							<td>Freestyle</td>
+							<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Freestyle'][25][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Freestyle'][25][2]}} ({{data['pbs'][0][swimmer1]['Freestyle'][25][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Freestyle'][25][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Freestyle'][25][2]}} ({{data['pbs'][1][swimmer2]['Freestyle'][25][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Freestyle'][50][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Freestyle'][50][2]}} ({{data['pbs'][0][swimmer1]['Freestyle'][50][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Freestyle'][50][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Freestyle'][50][2]}} ({{data['pbs'][1][swimmer2]['Freestyle'][50][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Freestyle'][100][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Freestyle'][100][2]}} ({{data['pbs'][0][swimmer1]['Freestyle'][100][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Freestyle'][100][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Freestyle'][100][2]}} ({{data['pbs'][1][swimmer2]['Freestyle'][100][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Freestyle'][200][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Freestyle'][200][2]}} ({{data['pbs'][0][swimmer1]['Freestyle'][200][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Freestyle'][200][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Freestyle'][200][2]}} ({{data['pbs'][1][swimmer2]['Freestyle'][200][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Freestyle'][400][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Freestyle'][400][2]}} ({{data['pbs'][0][swimmer1]['Freestyle'][400][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Freestyle'][400][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Freestyle'][400][2]}} ({{data['pbs'][1][swimmer2]['Freestyle'][400][3]}})</span></div></td></tr></table></td>
+						</tr>
+						<tr>
+							<td>Fly</td>
+							<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Fly'][25][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Fly'][25][2]}} ({{data['pbs'][0][swimmer1]['Fly'][25][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Fly'][25][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Fly'][25][2]}} ({{data['pbs'][1][swimmer2]['Fly'][25][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Fly'][50][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Fly'][50][2]}} ({{data['pbs'][0][swimmer1]['Fly'][50][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Fly'][50][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Fly'][50][2]}} ({{data['pbs'][1][swimmer2]['Fly'][50][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Fly'][100][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Fly'][100][2]}} ({{data['pbs'][0][swimmer1]['Fly'][100][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Fly'][100][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Fly'][100][2]}} ({{data['pbs'][1][swimmer2]['Fly'][100][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Fly'][200][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Fly'][200][2]}} ({{data['pbs'][0][swimmer1]['Fly'][200][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Fly'][200][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Fly'][200][2]}} ({{data['pbs'][1][swimmer2]['Fly'][200][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Fly'][400][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Fly'][400][2]}} ({{data['pbs'][0][swimmer1]['Fly'][400][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Fly'][400][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Fly'][400][2]}} ({{data['pbs'][1][swimmer2]['Fly'][400][3]}})</span></div></td></tr></table></td>
+						</tr>
+						<tr>
+							<td>Breast</td>
+							<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Breast'][25][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Breast'][25][2]}} ({{data['pbs'][0][swimmer1]['Breast'][25][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Breast'][25][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Breast'][25][2]}} ({{data['pbs'][1][swimmer2]['Breast'][25][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Breast'][50][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Breast'][50][2]}} ({{data['pbs'][0][swimmer1]['Breast'][50][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Breast'][50][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Breast'][50][2]}} ({{data['pbs'][1][swimmer2]['Breast'][50][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Breast'][100][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Breast'][100][2]}} ({{data['pbs'][0][swimmer1]['Breast'][100][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Breast'][100][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Breast'][100][2]}} ({{data['pbs'][1][swimmer2]['Breast'][100][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Breast'][200][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Breast'][200][2]}} ({{data['pbs'][0][swimmer1]['Breast'][200][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Breast'][200][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Breast'][200][2]}} ({{data['pbs'][1][swimmer2]['Breast'][200][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Breast'][400][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Breast'][400][2]}} ({{data['pbs'][0][swimmer1]['Breast'][400][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Breast'][400][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Breast'][400][2]}} ({{data['pbs'][1][swimmer2]['Breast'][400][3]}})</span></div></td></tr></table></td>
+						</tr>
+
+						<tr>
+							<td>Back</td>
+							<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Back'][25][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Back'][25][2]}} ({{data['pbs'][0][swimmer1]['Back'][25][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Back'][25][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Back'][25][2]}} ({{data['pbs'][1][swimmer2]['Back'][25][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Back'][50][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Back'][50][2]}} ({{data['pbs'][0][swimmer1]['Back'][50][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Back'][50][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Back'][50][2]}} ({{data['pbs'][1][swimmer2]['Back'][50][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Back'][100][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Back'][100][2]}} ({{data['pbs'][0][swimmer1]['Back'][100][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Back'][100][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Back'][100][2]}} ({{data['pbs'][1][swimmer2]['Back'][100][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Back'][200][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Back'][200][2]}} ({{data['pbs'][0][swimmer1]['Back'][200][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Back'][200][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Back'][200][2]}} ({{data['pbs'][1][swimmer2]['Back'][200][3]}})</span></div></td></tr></table></td>
+									<td><table><tr><td style="text-align: center"><div class="tooltip">{{data['pbs'][0][swimmer1]['Back'][400][0]}}<span class="tooltiptext">{{data['pbs'][0][swimmer1]['Back'][400][2]}} ({{data['pbs'][0][swimmer1]['Back'][400][3]}})</span></div></td>
+                <td style="text-align: center"><div class="tooltip">{{data['pbs'][1][swimmer2]['Back'][400][0]}}<span class="tooltiptext">{{data['pbs'][1][swimmer2]['Back'][400][2]}} ({{data['pbs'][1][swimmer2]['Back'][400][3]}})</span></div></td></tr></table></td>
+						</tr>
+</table>
+
+
+
+					<br>
+
+
+				</section>
+
+
+			<!-- Footer -->
+				<footer id="footer">
+
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="static/assets/js/jquery.min.js"></script>
+			<script src="static/assets/js/jquery.dropotron.min.js"></script>
+			<script src="static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="static/assets/js/browser.min.js"></script>
+			<script src="static/assets/js/breakpoints.min.js"></script>
+			<script src="static/assets/js/util.js"></script>
+			<script src="static/assets/js/main.js"></script>
+
+	</body>
+</html>
