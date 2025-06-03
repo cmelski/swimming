@@ -335,7 +335,7 @@ def create_db():
         print(f"Duplicate DB: {e}")
 
 
-# create_db()
+create_db()
 
 
 def create_table():
@@ -385,7 +385,7 @@ def create_table():
     conn.close()
 
 
-# create_table()
+create_table()
 
 
 def get_swimmers():
