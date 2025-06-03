@@ -307,9 +307,9 @@ class DBConnect:
 
         # self.cursor = self.connection.cursor()
 
-        self.connection = psycopg2.connect(database="swimming2", user=os.environ.get('DB_USER'),
+        self.connection = psycopg2.connect(database=os.environ.get('DB_NAME'), user=os.environ.get('DB_USER'),
                                            password=os.environ.get('DB_PASSWORD'),
-                                           host="localhost", port=5433)
+                                           host=os.environ.get('DB_HOST'), port=os.environ.get('DB_PORT'))
 
         self.cursor = self.connection.cursor()
 
@@ -317,11 +317,11 @@ class DBConnect:
 def create_db():
     try:
         conn = psycopg2.connect(
-            host="localhost",
-            database="postgres",  # Connect to the default 'postgres' database first
+            host=os.environ.get('DB_HOST'),
+            database=os.environ.get('DB_NAME_DEFAULT'),  # Connect to the default 'postgres' database first
             user=os.environ.get('DB_USER'),
             password=os.environ.get('DB_PASSWORD'),
-            port=5433
+            port=os.environ.get('DB_PORT')
         )
         conn.autocommit = True  # Set autocommit to True
         cur = conn.cursor()
@@ -339,9 +339,9 @@ create_db()
 
 
 def create_table():
-    conn = psycopg2.connect(database="swimming2", user=os.environ.get('DB_USER'),
+    conn = psycopg2.connect(database=os.environ.get('DB_NAME'), user=os.environ.get('DB_USER'),
                             password=os.environ.get('DB_PASSWORD'),
-                            host="localhost", port=5433)
+                            host=os.environ.get('DB_HOST'), port=os.environ.get('DB_PORT'))
     #print('connected')
     cur = conn.cursor()
     conn.autocommit = True
@@ -453,9 +453,9 @@ def migrate_data():
     with open('swimmers.json', 'r') as openfile:
         json_object = json.load(openfile)
 
-    conn = psycopg2.connect(database="swimming2", user=os.environ.get('DB_USER'),
+    conn = psycopg2.connect(database=os.environ.get('DB_NAME'), user=os.environ.get('DB_USER'),
                             password=os.environ.get('DB_PASSWORD'),
-                            host="localhost", port=5433)
+                            host=os.environ.get('DB_HOST'), port=os.environ.get('DB_PORT'))
     conn.autocommit = True
     cur = conn.cursor()
     cur.execute(f'SELECT * FROM swimmer LIMIT 0')
