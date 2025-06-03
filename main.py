@@ -335,14 +335,14 @@ def create_db():
         print(f"Duplicate DB: {e}")
 
 
-create_db()
+#create_db()
 
 
 def create_table():
     conn = psycopg2.connect(database=os.environ.get('DB_NAME'), user=os.environ.get('DB_USER'),
                             password=os.environ.get('DB_PASSWORD'),
                             host=os.environ.get('DB_HOST'), port=os.environ.get('DB_PORT'))
-    #print('connected')
+    # print('connected')
     cur = conn.cursor()
     conn.autocommit = True
     cur.execute("""
@@ -385,7 +385,7 @@ def create_table():
     conn.close()
 
 
-create_table()
+#create_table()
 
 
 def get_swimmers():
@@ -425,30 +425,52 @@ def migrate_data():
     # competitions = get_competitions()
     # events = get_events()
     # results = get_results()
-    # print(swimmers)
-    # # Sample data
+    # # # Sample data
     # swimmer_data = {
     #     'id': [item[0] for item in swimmers],
     #     'first_name': [item[1] for item in swimmers],
     #     'last_name': [item[2] for item in swimmers]
     # }
     #
+    # comp_data = {
+    #     'id': [item[0] for item in competitions],
+    #     'name': [item[1] for item in competitions],
+    #     'team': [item[2] for item in competitions],
+    #     'location': [item[3] for item in competitions],
+    #     'year': [item[4] for item in competitions]
+    # }
     #
-    # # Create a DataFrame
-    # df = pd.DataFrame(swimmer_data)
+    # event_data = {
+    #     'id': [item[0] for item in events],
+    #     'stroke': [item[1] for item in events]
+    # }
     #
-    # # Specify the file path
-    # file_path = 'swimmers.csv'
+    # results_data = {
+    #     'swimmer_id': [item[0] for item in results],
+    #     'comp_id': [item[1] for item in results],
+    #     'event_id': [item[2] for item in results],
+    #     'distance': [item[3] for item in results],
+    #     'age': [item[4] for item in results],
+    #     'place': [item[5] for item in results],
+    #     'time': [item[6] for item in results]
+    # }
     #
-    # # Write the DataFrame to a CSV file
-    # df.to_csv(file_path, index=False)
-    #
-    # # use json
-    # json_object = json.dumps(swimmer_data, indent=4)
-    #
-    # # Writing to sample.json
+    # json_object_swimmers = json.dumps(swimmer_data, indent=4)
+    # json_object_comps = json.dumps(comp_data, indent=4)
+    # json_object_events = json.dumps(event_data, indent=4)
+    # json_object_results = json.dumps(results_data, indent=4)
+    # #
+    # # # Writing to sample.json
     # with open("swimmers.json", "w") as outfile:
-    #     outfile.write(json_object)
+    #     outfile.write(json_object_swimmers)
+    # with open("comps.json", "w") as outfile:
+    #     outfile.write(json_object_comps)
+    # with open("events.json", "w") as outfile:
+    #     outfile.write(json_object_events)
+    # with open("results.json", "w") as outfile:
+    #     outfile.write(json_object_results)
+
+    # Load files and insert to DB
 
     with open('swimmers.json', 'r') as openfile:
         json_object = json.load(openfile)
@@ -468,42 +490,73 @@ def migrate_data():
 
         cur.execute(insert)
 
-    # for swimmer in swimmers:
-    #     insert = f"INSERT INTO swimmer ({column_names[0]}, {column_names[1]}," \
-    #              f"{column_names[2]})" \
-    #              f" VALUES('{swimmer[0]}','{swimmer[1]}', '{swimmer[2]}');"
-    #
-    #     cur.execute(insert)
-    #
-    # cur.execute(f'SELECT * FROM competition LIMIT 0')
-    # column_names = [desc[0] for desc in cur.description]
-    # for comp in competitions:
-    #     insert = f"INSERT INTO competition ({column_names[0]}, {column_names[1]}," \
-    #              f"{column_names[2]}, {column_names[3]}, {column_names[4]})" \
-    #              f" VALUES('{comp[0]}','{format_apostrophe(comp[1])}', '{comp[2]}', '{comp[3]}', '{comp[4]}');"
-    #
-    #     cur.execute(insert)
-    #
-    # cur.execute(f'SELECT * FROM event LIMIT 0')
-    # column_names = [desc[0] for desc in cur.description]
-    # for event in events:
-    #     insert = f"INSERT INTO event ({column_names[0]}, {column_names[1]})" \
-    #              f" VALUES('{event[0]}','{event[1]}');"
-    #
-    #     cur.execute(insert)
-    #
-    # cur.execute(f'SELECT * FROM results LIMIT 0')
-    # column_names = [desc[0] for desc in cur.description]
-    # for result in results:
-    #     insert = f"INSERT INTO results ({column_names[0]}, {column_names[1]}," \
-    #              f"{column_names[2]}, {column_names[3]}, {column_names[4]}, {column_names[5]}, {column_names[6]})" \
-    #              f" VALUES('{result[0]}','{result[1]}', '{result[2]}', '{result[3]}', '{result[4]}', '{result[5]}', '{result[6]}');"
-    #     cur.execute(insert)
-    #
+    cur.close()
+
+    #comps
+
+    with open('comps.json', 'r') as openfile:
+        json_object = json.load(openfile)
+
+    conn = psycopg2.connect(database=os.environ.get('DB_NAME'), user=os.environ.get('DB_USER'),
+                            password=os.environ.get('DB_PASSWORD'),
+                            host=os.environ.get('DB_HOST'), port=os.environ.get('DB_PORT'))
+    conn.autocommit = True
+    cur = conn.cursor()
+    cur.execute(f'SELECT * FROM competition LIMIT 0')
+    column_names = [desc[0] for desc in cur.description]
+
+    for i in range(0, len(json_object['id'])):
+        insert = f"INSERT INTO competition ({column_names[0]}, {column_names[1]}," \
+                 f"{column_names[2]}, {column_names[3]}, {column_names[4]})" \
+                 f" VALUES('{json_object['id'][i]}','{format_apostrophe(json_object['name'][i])}', '{json_object['team'][i]}', '{json_object['location'][i]}', '{json_object['year'][i]}');"
+
+        cur.execute(insert)
+
+    cur.close()
+
+    # events
+
+    with open('events.json', 'r') as openfile:
+        json_object = json.load(openfile)
+
+    conn = psycopg2.connect(database=os.environ.get('DB_NAME'), user=os.environ.get('DB_USER'),
+                            password=os.environ.get('DB_PASSWORD'),
+                            host=os.environ.get('DB_HOST'), port=os.environ.get('DB_PORT'))
+    conn.autocommit = True
+    cur = conn.cursor()
+    cur.execute(f'SELECT * FROM event LIMIT 0')
+    column_names = [desc[0] for desc in cur.description]
+
+    for i in range(0, len(json_object['id'])):
+        insert = f"INSERT INTO event ({column_names[0]}, {column_names[1]}) VALUES('{json_object['id'][i]}','{json_object['stroke'][i]}');"
+
+        cur.execute(insert)
+
+    cur.close()
+
+    # results
+
+    with open('results.json', 'r') as openfile:
+        json_object = json.load(openfile)
+
+    conn = psycopg2.connect(database=os.environ.get('DB_NAME'), user=os.environ.get('DB_USER'),
+                            password=os.environ.get('DB_PASSWORD'),
+                            host=os.environ.get('DB_HOST'), port=os.environ.get('DB_PORT'))
+    conn.autocommit = True
+    cur = conn.cursor()
+    cur.execute(f'SELECT * FROM results LIMIT 0')
+    column_names = [desc[0] for desc in cur.description]
+
+    for i in range(0, len(json_object['swimmer_id'])):
+        insert = f"INSERT INTO results ({column_names[0]}, {column_names[1]}," \
+                 f"{column_names[2]}, {column_names[3]}, {column_names[4]}, {column_names[5]}, {column_names[6]})" \
+                 f" VALUES('{json_object['swimmer_id'][i]}','{json_object['comp_id'][i]}', '{json_object['event_id'][i]}', '{json_object['distance'][i]}', '{json_object['age'][i]}', '{json_object['place'][i]}', '{json_object['time'][i]}');"
+
+        cur.execute(insert)
+
     cur.close()
 
 
-# migrate_data()
 
 
 def get_swimmers_by_event(event_id):
@@ -1000,6 +1053,11 @@ def get_personal_bests_compare():
     print(times.values())
     return render_template('pbs_compare.html', data=times,
                            swimmer1=swimmer1, swimmer2=swimmer2)
+
+@app.route('/migrate_existing_data', methods=["GET", "POST"])
+def migrate_existing_data():
+    migrate_data()
+    return redirect(url_for("home"))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,52 @@
+{
+    "id": [
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        1
+    ],
+    "name": [
+        "GEMS Swim Gala 2019",
+        "SSA Come Back Meet 2",
+        "5th Annual Huskies Meet",
+        "SJII Novice Meet",
+        "East Coast Swimming Championships 2024",
+        "Dragon's Den International Invitational 2025",
+        "55th SNAG (2025) Seniors",
+        "FOBISIA Swimming 2025"
+    ],
+    "team": [
+        "GEMS",
+        "GEMS",
+        "GEMS",
+        "GEMS",
+        "Dorados",
+        "Nexus",
+        "Nexus",
+        "Nexus"
+    ],
+    "location": [
+        "Singapore",
+        "Singapore",
+        "Singapore",
+        "Singapore",
+        "Saint John, NB, Canada",
+        "Singapore",
+        "Singapore",
+        "Thailand"
+    ],
+    "year": [
+        "2019-06-07",
+        "2020-12-15",
+        "2019-11-30",
+        "2019-11-15",
+        "2024-07-06",
+        "2025-04-25",
+        "2025-03-18",
+        "2025-02-21"
+    ]
+}
