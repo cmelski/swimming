@@ -342,7 +342,7 @@ def create_table():
     conn = psycopg2.connect(database="swimming2", user=os.environ.get('DB_USER'),
                             password=os.environ.get('DB_PASSWORD'),
                             host="localhost", port=5433)
-    print('connected')
+    #print('connected')
     cur = conn.cursor()
     conn.autocommit = True
     cur.execute("""
