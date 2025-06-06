@@ -302,10 +302,6 @@ def get_combined_chart(mylist):
 
 class DBConnect:
     def __init__(self):
-        # self.connection = psycopg2.connect(database="swimming", user="postgres", password="password",
-        # host="localhost", port=5433)
-
-        # self.cursor = self.connection.cursor()
 
         self.connection = psycopg2.connect(database=os.environ.get('DB_NAME'), user=os.environ.get('DB_USER'),
                                            password=os.environ.get('DB_PASSWORD'),
