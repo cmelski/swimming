@@ -386,7 +386,7 @@ def create_table():
 
 def get_swimmers():
     con = DBConnect()
-    con.cursor.execute('SELECT * from swimmer')
+    con.cursor.execute('SELECT * from swimmer order by first_name desc')
     swimmer_data = con.cursor.fetchall()
     con.cursor.close()
     return swimmer_data
